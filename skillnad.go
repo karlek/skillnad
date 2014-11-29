@@ -44,14 +44,14 @@ func play(filename string) (err error) {
 	for row := 0; row < bound.Max.Y; row++ {
 		for col := 0; col < bound.Max.X; col++ {
 			c := img.At(col, row)
-			if row == 0 && col == 0 {
+			if col == 0 {
 				prev = c
 			}
-			if Differ(0.05, c, prev) {
+			if Differ(0.1, c, prev) {
 				num++
 				// Sort pixels and add to new picture.
-				SortDraw(out, &pixels, col, row)
 				out.Set(col, row, c)
+				SortDraw(out, &pixels, col, row)
 				prev = c
 				continue
 			}
@@ -76,21 +76,12 @@ func play(filename string) (err error) {
 }
 
 func SortDraw(img *image.NRGBA, pixels *[]color.Color, x, y int) {
-	// fmt.Println(1)
 	sort.Sort(ByLevel(*pixels))
 	start := x - len(*pixels)
-	// for _, c := range *pixels {
-	// 	// fmt.Println(c)
-	// }
-
-	for index := 0; start < len(*pixels); start++ {
-		// draw.Draw(img, img.Bounds(), &image.Uniform{pixels[index]}, image.Pt(start, y), draw.Src)
-		// fmt.Println(start, len(pixels), index)
+	for index := 0; start < x; start++ {
 		img.Set(start, y, (*pixels)[index])
-		// img.Set(start, y, color.NRGBA64{0xff, 0, 0xff, 0})
 		index++
 	}
-	// Sort pixels and add to new picture.
 	*pixels = []color.Color{}
 }
 
@@ -108,9 +99,21 @@ func Level(c color.Color) float64 {
 func Differ(threshold float64, c1, c2 color.Color) bool {
 	r1, g1, b1, _ := c1.RGBA()
 	r2, g2, b2, _ := c2.RGBA()
+	if r1 < r2 {
+		r1, r2 = r2, r1
+	}
+	if g1 < g2 {
+		g1, g2 = g2, g1
+	}
+	if b1 < b2 {
+		b1, b2 = b2, b1
+	}
+	// fmt.Println(float64(r1))
+	// fmt.Println(float64(r2))
 	// fmt.Println(float64(r1 - r2))
 	// fmt.Println(float64(r1-r2) / 65535.0)
 	// fmt.Println(float64(r1-r2)/65535.0 >= threshold)
+	// fmt.Println()
 	switch {
 	case math.Abs(float64(r1-r2)/65535.0) >= threshold:
 		return true

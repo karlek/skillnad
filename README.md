@@ -56,7 +56,7 @@ Accidents / Glitches
 
 While coding this application some bugs where found and here are some results:
 
-![Accident #1](https://github.com/karlek/skillnad/blob/master/Accident1.png?raw=true)
+![Accident #1](https://github.com/karlek/skillnad/blob/master/accident1.png?raw=true)
 
 Public domain
 -------------

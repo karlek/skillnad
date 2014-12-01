@@ -62,9 +62,11 @@ func main() {
 		close(ec)
 	}(&wg, errChan)
 
+	wg.Add(flag.NArg())
 	for _, filename := range flag.Args() {
-		go skillnadErrWrap(filename, &wg, errChan)
-		wg.Add(1)
+		go func(filename string, errChan chan<- error) {
+			errChan <- pixelSort(filename)
+		}(filename, errChan)
 	}
 	for err := range errChan {
 		if err != nil {
@@ -74,8 +76,8 @@ func main() {
 	}
 }
 
-func skillnadErrWrap(filename string, wg *sync.WaitGroup, errChan chan error) {
-	errChan <- skillnad(filename)
+// pixelSortErrWrap
+func pixelSortErrWrap(filename string, errChan chan error) {
 }
 
 type Glitcher interface {
@@ -90,7 +92,7 @@ type Glitch struct {
 	i *image.RGBA
 }
 
-func skillnad(filename string) (err error) {
+func pixelSort(filename string) (err error) {
 	fmt.Println("[!]    Glitching:", filename)
 
 	// Open file.
@@ -292,11 +294,11 @@ func Differ(threshold float64, c1, c2 color.Color) bool {
 		b1, b2 = b2, b1
 	}
 	switch {
-	case float64(r1-r2)/65535.0 >= threshold:
+	case int(r1-r2) > int(threshold*65535.0):
 		return true
-	case float64(g1-g2)/65535.0 >= threshold:
+	case int(g1-g2) > int(threshold*65535.0):
 		return true
-	case float64(b1-b2)/65535.0 >= threshold:
+	case int(b1-b2) > int(threshold*65535.0):
 		return true
 	}
 	return false

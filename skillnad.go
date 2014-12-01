@@ -9,6 +9,8 @@ import (
 	"image/png"
 	"log"
 	"os"
+	"runtime"
+	"runtime/pprof"
 	"sort"
 )
 
@@ -17,10 +19,12 @@ var amountY float64
 var outFile string
 var xy bool
 var yx bool
+var cpuprofile bool
 
 func init() {
 	flag.BoolVar(&xy, "xy", true, "sort the x-axis first, then the y-axis")
 	flag.BoolVar(&yx, "yx", false, "sort the y-axis first, then the x-axis")
+	flag.BoolVar(&cpuprofile, "cpuprofile", false, "pprof")
 	flag.Float64Var(&amountX, "x", 0.1, "amount of pixel sort on the x-axis.")
 	flag.Float64Var(&amountY, "y", 0.0, "amount of pixel sort on the y-axis.")
 	flag.StringVar(&outFile, "o", "out.png", "filename of output.")
@@ -35,6 +39,14 @@ func usage() {
 
 func main() {
 	flag.Parse()
+	if cpuprofile {
+		f, err := os.Create("skillnad.pprof")
+		if err != nil {
+			log.Fatalln(err)
+		}
+		pprof.StartCPUProfile(f)
+		defer pprof.StopCPUProfile()
+	}
 	if flag.NArg() < 1 {
 		flag.Usage()
 	}

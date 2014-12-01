@@ -19,7 +19,7 @@ Generate an image
 -----------------
 
 ```shell
-$ skillnad -x 0.00 -y 1 manifest.png
+$ skillnad -x 0 -y 1 manifest.png
 ```
 
 Flags:
@@ -33,8 +33,6 @@ Flags:
 	Sort the x-axis before the y-axis.
 * __yx:__
 	Sort the y-axis before the x-axis.
-* __o:__
-	Output filename.
 
 Example
 --------
@@ -50,7 +48,7 @@ And this is the sorted image:
 Produced with:
 
 ```shell
-$ skillnad -x 0.00 -y 1 manifest.png
+$ skillnad -x 0 -y 1 manifest.png
 ```
 
 Public domain

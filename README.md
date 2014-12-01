@@ -51,6 +51,13 @@ Produced with:
 $ skillnad -x 0 -y 1 manifest.png
 ```
 
+Accidents / Glitches
+----------------------
+
+While coding this application some bugs where found and here are some results:
+
+![Accident #1](https://github.com/karlek/skillnad/blob/master/Accident1.png?raw=true)
+
 Public domain
 -------------
 I hereby release this code into the [public domain](https://creativecommons.org/publicdomain/zero/1.0/).

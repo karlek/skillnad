@@ -56,7 +56,15 @@ Accidents / Glitches
 
 While coding this application some bugs where found and here are some results:
 
-![Accident #1](https://github.com/karlek/skillnad/blob/master/Accident1.png?raw=true)
+![Accident #1](https://github.com/karlek/skillnad/blob/master/accident1.png?raw=true)
+
+--------------------------------------------------------------------------------
+
+![Accident #2](https://github.com/karlek/skillnad/blob/master/accident2.png?raw=true)
+
+Accident #2 overlayed with a black background.
+
+![Accident #2.5](https://github.com/karlek/skillnad/blob/master/accident2.5.png?raw=true)
 
 Public domain
 -------------
